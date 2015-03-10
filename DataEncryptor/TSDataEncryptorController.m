@@ -58,12 +58,27 @@
 
 - (IBAction)onEncrupt:(id)sender
 {
-    [TSDataEncryptor encryptFileWithPath:self.inTextField.stringValue outFilePath:self.outTextField.stringValue pass:@"pass1"];
+    NSError *error = nil;
+    [TSDataEncryptor encryptFileWithPath:self.inTextField.stringValue
+                             outFilePath:self.outTextField.stringValue
+                                    pass:@"pass1"
+                                   error:&error];
+    if (nil == error)
+    {
+        
+    }
+    else
+    {
+        
+    }
 }
 
 - (IBAction)onDecrupt:(id)sender
 {
-    [TSDataEncryptor decryptFileWithPath:self.inTextField.stringValue outFilePath:self.outTextField.stringValue pass:@"pass1"];
+    [TSDataEncryptor decryptFileWithPath:self.inTextField.stringValue
+                             outFilePath:self.outTextField.stringValue
+                                    pass:@"pass1"
+                                   error:nil];
 }
 
 - (IBAction)onInOpen:(id)sender

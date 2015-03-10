@@ -10,7 +10,14 @@
 
 @interface TSDataEncryptor : NSObject
 
-+ (void)encryptFileWithPath:(NSString *)inFilePath outFilePath:(NSString *)outFilePath pass:(NSString *)pass;
-+ (void)decryptFileWithPath:(NSString *)inFilePath outFilePath:(NSString *)outFilePath pass:(NSString *)pass;
++ (void)encryptFileWithPath:(NSString *)inFilePath
+                outFilePath:(NSString *)outFilePath
+                       pass:(NSString *)pass
+                      error:(NSError **)error;
+
++ (void)decryptFileWithPath:(NSString *)inFilePath
+                outFilePath:(NSString *)outFilePath
+                       pass:(NSString *)pass
+                      error:(NSError **)error;
 
 @end
