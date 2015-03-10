@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A5A2B441AAF891B0065E527 /* TSDataEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5A2B431AAF891B0065E527 /* TSDataEncryptor.m */; };
 		1AEDCC621A9A2E790076715A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEDCC611A9A2E790076715A /* AppDelegate.m */; };
 		1AEDCC641A9A2E790076715A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AEDCC631A9A2E790076715A /* main.m */; };
 		1AEDCC661A9A2E790076715A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AEDCC651A9A2E790076715A /* Images.xcassets */; };
@@ -26,6 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A5A2B421AAF891B0065E527 /* TSDataEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSDataEncryptor.h; sourceTree = "<group>"; };
+		1A5A2B431AAF891B0065E527 /* TSDataEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSDataEncryptor.m; sourceTree = "<group>"; };
 		1AEDCC5B1A9A2E790076715A /* DataEncryptor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataEncryptor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AEDCC5F1A9A2E790076715A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AEDCC601A9A2E790076715A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -81,6 +84,8 @@
 			children = (
 				1AEDCC601A9A2E790076715A /* AppDelegate.h */,
 				1AEDCC611A9A2E790076715A /* AppDelegate.m */,
+				1A5A2B421AAF891B0065E527 /* TSDataEncryptor.h */,
+				1A5A2B431AAF891B0065E527 /* TSDataEncryptor.m */,
 				1AEDCC7E1A9A39240076715A /* TSDataEncryptorController.h */,
 				1AEDCC7F1A9A39240076715A /* TSDataEncryptorController.m */,
 				1AEDCC651A9A2E790076715A /* Images.xcassets */,
@@ -218,6 +223,7 @@
 				1AEDCC641A9A2E790076715A /* main.m in Sources */,
 				1AEDCC801A9A39240076715A /* TSDataEncryptorController.m in Sources */,
 				1AEDCC621A9A2E790076715A /* AppDelegate.m in Sources */,
+				1A5A2B441AAF891B0065E527 /* TSDataEncryptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

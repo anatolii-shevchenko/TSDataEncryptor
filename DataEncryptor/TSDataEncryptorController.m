@@ -7,6 +7,7 @@
 //
 
 #import "TSDataEncryptorController.h"
+#import "TSDataEncryptor.h"
 
 @interface TSDataEncryptorController ()
 
@@ -57,12 +58,12 @@
 
 - (IBAction)onEncrupt:(id)sender
 {
-    
+    [TSDataEncryptor encryptFileWithPath:self.inTextField.stringValue outFilePath:self.outTextField.stringValue pass:@"pass1"];
 }
 
 - (IBAction)onDecrupt:(id)sender
 {
-    
+    [TSDataEncryptor decryptFileWithPath:self.inTextField.stringValue outFilePath:self.outTextField.stringValue pass:@"pass1"];
 }
 
 - (IBAction)onInOpen:(id)sender
