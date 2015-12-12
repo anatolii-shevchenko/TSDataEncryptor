@@ -690,7 +690,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="onInOpen:" target="QvC-M9-y7g" id="0hl-hr-TJY"/>
+                            <action selector="onEncryptOpen:" target="QvC-M9-y7g" id="Odh-2o-reb"/>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GBF-fG-80l">
@@ -708,7 +708,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="onOutOpen:" target="QvC-M9-y7g" id="gqa-l8-hZW"/>
+                            <action selector="onDecryptOpen:" target="QvC-M9-y7g" id="8PP-ef-0tG"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lc1-mk-8Jv">
@@ -718,13 +718,13 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="onEncrupt:" target="QvC-M9-y7g" id="4sh-I6-ZEg"/>
+                            <action selector="onEncrypt:" target="QvC-M9-y7g" id="0Mg-YZ-htW"/>
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hOE-gp-Uwy">
                         <rect key="frame" x="18" y="156" width="254" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Encryption folder/file" id="5kF-18-ETr">
-                            <font key="font" metaFont="system" size="12"/>
+                            <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -732,7 +732,7 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksh-l6-MNo">
                         <rect key="frame" x="18" y="112" width="254" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Decryption folder/file" id="tE2-RC-QPu">
-                            <font key="font" metaFont="system" size="12"/>
+                            <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -740,7 +740,7 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ced-AR-tOh">
                         <rect key="frame" x="18" y="68" width="254" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password" id="gLo-7F-rD7">
-                            <font key="font" metaFont="system" size="12"/>
+                            <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -752,7 +752,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="onDecrupt:" target="QvC-M9-y7g" id="0sI-Q2-yRv"/>
+                            <action selector="onDecrypt:" target="QvC-M9-y7g" id="QaT-6r-FYx"/>
                         </connections>
                     </button>
                     <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b8W-6B-I9i">
@@ -769,7 +769,7 @@
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="279" translatesAutoresizingMaskIntoConstraints="NO" id="9kM-8Y-XaJ">
                         <rect key="frame" x="18" y="7" width="283" height="32"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Select folders and tap an appropriate button to start operation." id="xdw-B2-7yv">
-                            <font key="font" metaFont="system" size="12"/>
+                            <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -777,9 +777,9 @@
                 </subviews>
             </view>
             <connections>
-                <outlet property="inTextField" destination="Cmy-iX-HFm" id="se0-Mx-IJS"/>
+                <outlet property="decryptTextField" destination="GBF-fG-80l" id="dn2-Cg-mxA"/>
+                <outlet property="encryptTextField" destination="Cmy-iX-HFm" id="4cX-zc-5gz"/>
                 <outlet property="infoTextField" destination="9kM-8Y-XaJ" id="HG9-s6-j2U"/>
-                <outlet property="outTextField" destination="GBF-fG-80l" id="TiP-k1-xlz"/>
                 <outlet property="passTextField" destination="b8W-6B-I9i" id="q1l-ff-F8g"/>
             </connections>
             <point key="canvasLocation" x="242.5" y="196"/>

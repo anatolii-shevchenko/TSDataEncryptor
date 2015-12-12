@@ -11,63 +11,68 @@
 
 @interface TSDataEncryptorController ()
 
-@property (nonatomic, weak) IBOutlet NSTextField *inTextField;
-@property (nonatomic, weak) IBOutlet NSTextField *outTextField;
+@property (nonatomic, weak) IBOutlet NSTextField *encryptTextField;
+@property (nonatomic, weak) IBOutlet NSTextField *decryptTextField;
 @property (nonatomic, weak) IBOutlet NSTextField *passTextField;
 @property (nonatomic, weak) IBOutlet NSTextField *infoTextField;
 
-@property (nonatomic, strong, readonly) NSOpenPanel *openPanel;
-@property (nonatomic, strong, readonly) NSSavePanel *savePanel;
+@property (nonatomic, strong, readonly) NSOpenPanel *encryptPanel;
+@property (nonatomic, strong, readonly) NSOpenPanel *decryptPanel;
 
-- (IBAction)onEncrupt:(id)sender;
-- (IBAction)onDecrupt:(id)sender;
+- (IBAction)onEncrypt:(id)sender;
+- (IBAction)onDecrypt:(id)sender;
 
-- (IBAction)onInOpen:(id)sender;
-- (IBAction)onOutOpen:(id)sender;
+- (IBAction)onEncryptOpen:(id)sender;
+- (IBAction)onDecryptOpen:(id)sender;
 
 @end
 
 @implementation TSDataEncryptorController
-@synthesize openPanel = _openPanel;
-@synthesize savePanel = _savePanel;
+@synthesize encryptPanel = _encryptPanel;
+@synthesize decryptPanel = _decryptPanel;
 
-#pragma mark -
+#pragma mark - panels stuff
 
-- (NSOpenPanel *)openPanel
+- (NSOpenPanel *)createPanel
 {
-    if (_openPanel == nil)
-    {
-        _openPanel = [NSOpenPanel openPanel];
-        _openPanel.prompt = @"Income";
-        _openPanel.showsHiddenFiles = YES;
-        _openPanel.canChooseDirectories = YES;
-        _openPanel.allowsMultipleSelection = YES;
-    }
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    panel.prompt = @"Choose";
+    panel.showsHiddenFiles = YES;
+    panel.canChooseDirectories = YES;
+    panel.allowsMultipleSelection = YES;
+    panel.canCreateDirectories = YES;
     
-    return _openPanel;
+    return panel;
 }
 
-- (NSSavePanel *)savePanel
+- (NSOpenPanel *)encryptPanel
 {
-    if (_savePanel == nil)
+    if (_encryptPanel == nil)
     {
-        _savePanel = [NSSavePanel savePanel];
-        _savePanel.prompt = @"Outcome";
-        _savePanel.showsHiddenFiles = YES;
-        _savePanel.canCreateDirectories = YES;
+        _encryptPanel = [self createPanel];
     }
     
-    return _savePanel;
+    return _encryptPanel;
+}
+
+- (NSOpenPanel *)decryptPanel
+{
+    if (_decryptPanel == nil)
+    {
+        _decryptPanel = [self createPanel];
+    }
+    
+    return _decryptPanel;
 }
 
 #pragma mark - IBAction's
 
-- (IBAction)onEncrupt:(id)sender
+- (IBAction)onEncrypt:(id)sender
 {
     NSError *error = nil;
-    [TSDataEncryptor encryptFileWithPath:self.inTextField.stringValue
-                             outFilePath:self.outTextField.stringValue
-                                    pass:@"pass1"
+    [TSDataEncryptor encryptFileWithPath:self.encryptTextField.stringValue
+                             outFilePath:self.decryptTextField.stringValue
+                                    pass:self.passTextField.stringValue
                                    error:&error];
     if (nil == error)
     {
@@ -79,52 +84,70 @@
     }
 }
 
-- (IBAction)onDecrupt:(id)sender
+- (IBAction)onDecrypt:(id)sender
 {
-    [TSDataEncryptor decryptFileWithPath:self.inTextField.stringValue
-                             outFilePath:self.outTextField.stringValue
-                                    pass:@"pass1"
+    [TSDataEncryptor decryptFileWithPath:self.decryptTextField.stringValue
+                             outFilePath:self.encryptTextField.stringValue
+                                    pass:self.passTextField.stringValue
                                    error:nil];
 }
 
-- (IBAction)onInOpen:(id)sender
+- (IBAction)onEncryptOpen:(id)sender
 {
-    NSInteger clicked = [self.openPanel runModal];
+    NSInteger clicked = [self.encryptPanel runModal];
     if (clicked == NSFileHandlingPanelOKButton)
     {
-        self.inTextField.stringValue = self.openPanel.URL.path;
+        self.encryptTextField.stringValue = self.encryptPanel.URL.path;
         
-        NSArray *pathes = self.openPanel.URLs;
-        
-        if (pathes.count == 1)
+        if (0 == self.decryptTextField.stringValue.length)
         {
-            if ([[pathes firstObject] isEqualTo:self.openPanel.directoryURL])//only one directory has been chosen
-            {
-                self.savePanel.directoryURL = self.openPanel.directoryURL.URLByDeletingLastPathComponent;
-//                self.savePanel.message = [NSString stringWithFormat:@"out_%@", self.openPanel.directoryURL.lastPathComponent];
-            }
-            else//one file has been chosen
-            {
-                self.savePanel.directoryURL = self.openPanel.directoryURL;
-//                self.savePanel.message = [NSString stringWithFormat:@"out_%@", self.openPanel.nameFieldLabel];
-            }
+            NSURL *suggestedURL = [self suggestedDirectoryURLFromPanel:self.encryptPanel];
+            self.decryptPanel.directoryURL = suggestedURL;
+            self.decryptTextField.stringValue = suggestedURL.path;
         }
-        else
-        {
-            self.savePanel.directoryURL = self.openPanel.directoryURL;
-//            self.savePanel.message = @"out";
-        }
-        self.outTextField.stringValue = self.savePanel.URL.path;
     }
 }
 
-- (IBAction)onOutOpen:(id)sender
+- (IBAction)onDecryptOpen:(id)sender
 {
-    NSInteger clicked = [self.savePanel runModal];
+    NSInteger clicked = [self.decryptPanel runModal];
     if (clicked == NSFileHandlingPanelOKButton)
     {
-        self.outTextField.stringValue = self.savePanel.URL.path;
+        self.decryptTextField.stringValue = self.decryptPanel.URL.path;
+        
+        if (0 == self.encryptTextField.stringValue.length)
+        {
+            NSURL *suggestedURL = [self suggestedDirectoryURLFromPanel:self.decryptPanel];
+            self.encryptPanel.directoryURL = suggestedURL;
+            self.encryptTextField.stringValue = suggestedURL.path;
+        }
     }
+}
+
+#pragma mark - private methods
+
+- (NSURL *)suggestedDirectoryURLFromPanel:(NSOpenPanel *)panel
+{
+    NSURL *suggestedDirectoryURL = nil;
+    
+    NSArray *pathes = panel.URLs;
+    if (pathes.count == 1)
+    {
+        if ([[pathes firstObject] isEqualTo:panel.directoryURL]) //one directory has been chosen
+        {
+            suggestedDirectoryURL = panel.directoryURL.URLByDeletingLastPathComponent;
+        }
+        else //one file has been chosen
+        {
+            suggestedDirectoryURL = panel.directoryURL;
+        }
+    }
+    else
+    {
+        suggestedDirectoryURL = panel.directoryURL;
+    }
+    
+    return suggestedDirectoryURL;
 }
 
 @end
