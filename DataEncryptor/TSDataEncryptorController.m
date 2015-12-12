@@ -39,7 +39,6 @@
     panel.prompt = @"Choose";
     panel.showsHiddenFiles = YES;
     panel.canChooseDirectories = YES;
-    panel.allowsMultipleSelection = YES;
     panel.canCreateDirectories = YES;
     
     return panel;
