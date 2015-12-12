@@ -766,7 +766,7 @@
                             </allowedInputSourceLocales>
                         </secureTextFieldCell>
                     </secureTextField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9kM-8Y-XaJ">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="279" translatesAutoresizingMaskIntoConstraints="NO" id="9kM-8Y-XaJ">
                         <rect key="frame" x="18" y="7" width="283" height="32"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Select folders and tap an appropriate button to start operation." id="xdw-B2-7yv">
                             <font key="font" metaFont="system" size="12"/>
