@@ -68,27 +68,56 @@
 
 - (IBAction)onEncrypt:(id)sender
 {
-    NSError *error = nil;
-    [TSDataEncryptor encryptFileWithPath:self.encryptTextField.stringValue
-                             outFilePath:self.decryptTextField.stringValue
-                                    pass:self.passTextField.stringValue
-                                   error:&error];
-    if (nil == error)
+    BOOL isDirectory = NO;
+    NSString *filePath = self.encryptTextField.stringValue;
+    BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
+    
+    NSString *operationResult = nil;
+    if (isExist)
     {
-        
+        NSArray *filesArray = nil;
+        if (isDirectory)
+        {
+            filesArray = [self allFilesForDirectory:filePath];
+        }
+        else
+        {
+            filesArray = @[filePath];
+        }
+        operationResult = [self resultAfterFilesEncryption:filesArray];
     }
     else
     {
-        
+        operationResult = @"There is no input file/directory!";
     }
+    self.infoTextField.stringValue = operationResult;
 }
 
 - (IBAction)onDecrypt:(id)sender
 {
-    [TSDataEncryptor decryptFileWithPath:self.decryptTextField.stringValue
-                             outFilePath:self.encryptTextField.stringValue
-                                    pass:self.passTextField.stringValue
-                                   error:nil];
+    BOOL isDirectory = NO;
+    NSString *filePath = self.decryptTextField.stringValue;
+    BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
+    
+    NSString *operationResult = nil;
+    if (isExist)
+    {
+        NSArray *filesArray = nil;
+        if (isDirectory)
+        {
+            filesArray = [self allFilesForDirectory:filePath];
+        }
+        else
+        {
+            filesArray = @[filePath];
+        }
+        operationResult = [self resultAfterFilesDecryption:filesArray];
+    }
+    else
+    {
+        operationResult = @"There is no input file/directory!";
+    }
+    self.infoTextField.stringValue = operationResult;
 }
 
 - (IBAction)onEncryptOpen:(id)sender
@@ -147,6 +176,66 @@
     }
     
     return suggestedDirectoryURL;
+}
+
+- (NSString *)resultAfterFilesEncryption:(NSArray *)files
+{
+    NSError *error = nil;
+    
+    for (NSString *file in files)
+    {
+        [TSDataEncryptor encryptFileWithPath:file
+                                 outFilePath:self.decryptTextField.stringValue
+                                        pass:self.passTextField.stringValue
+                                       error:&error];
+        if (nil != error)
+        {
+            return [NSString stringWithFormat:@"Error: %@", error.description];
+        }
+    }
+    return @"Done!";
+}
+
+- (NSString *)resultAfterFilesDecryption:(NSArray *)files
+{
+    NSError *error = nil;
+    
+    for (NSString *file in files)
+    {
+        [TSDataEncryptor decryptFileWithPath:file
+                                 outFilePath:self.encryptTextField.stringValue
+                                        pass:self.passTextField.stringValue
+                                       error:&error];
+        if (nil != error)
+        {
+            return [NSString stringWithFormat:@"Error: %@", error.description];
+        }
+    }
+    return @"Done!";
+}
+
+- (NSArray *)allFilesForDirectory:(NSString *)directoryPath
+{
+    NSMutableArray *allFiles = [[NSMutableArray alloc] init];
+    
+    NSString *file = nil;
+    NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
+    while (file = [enumerator nextObject])
+    {
+        BOOL isDirectory = NO;
+        NSString *fullPath = [directoryPath stringByAppendingPathComponent:file];
+        [[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDirectory];
+        
+        if (!isDirectory)
+        {
+            [allFiles addObject:fullPath];
+        }
+        else
+        {
+            [allFiles addObjectsFromArray:[self allFilesForDirectory:fullPath]];
+        }
+    }
+    return allFiles;
 }
 
 @end
