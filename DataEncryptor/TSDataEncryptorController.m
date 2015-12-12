@@ -75,16 +75,16 @@
     NSString *operationResult = nil;
     if (isExist)
     {
-        NSArray *filesArray = nil;
+        NSSet *filesSet = nil;
         if (isDirectory)
         {
-            filesArray = [self allFilesForDirectory:filePath];
+            filesSet = [self allFilesForDirectory:filePath];
         }
         else
         {
-            filesArray = @[filePath];
+            filesSet = [NSSet setWithObject:filePath];
         }
-        operationResult = [self resultAfterFilesEncryption:filesArray];
+        operationResult = [self resultAfterFilesEncryption:filesSet];
     }
     else
     {
@@ -102,16 +102,16 @@
     NSString *operationResult = nil;
     if (isExist)
     {
-        NSArray *filesArray = nil;
+        NSSet *filesSet = nil;
         if (isDirectory)
         {
-            filesArray = [self allFilesForDirectory:filePath];
+            filesSet = [self allFilesForDirectory:filePath];
         }
         else
         {
-            filesArray = @[filePath];
+            filesSet = [NSSet setWithObject:filePath];
         }
-        operationResult = [self resultAfterFilesDecryption:filesArray];
+        operationResult = [self resultAfterFilesDecryption:filesSet];
     }
     else
     {
@@ -178,7 +178,7 @@
     return suggestedDirectoryURL;
 }
 
-- (NSString *)resultAfterFilesEncryption:(NSArray *)files
+- (NSString *)resultAfterFilesEncryption:(NSSet *)files
 {
     NSError *error = nil;
     
@@ -196,7 +196,7 @@
     return @"Done!";
 }
 
-- (NSString *)resultAfterFilesDecryption:(NSArray *)files
+- (NSString *)resultAfterFilesDecryption:(NSSet *)files
 {
     NSError *error = nil;
     
@@ -214,9 +214,9 @@
     return @"Done!";
 }
 
-- (NSArray *)allFilesForDirectory:(NSString *)directoryPath
+- (NSSet *)allFilesForDirectory:(NSString *)directoryPath
 {
-    NSMutableArray *allFiles = [[NSMutableArray alloc] init];
+    NSMutableSet *allFiles = [[NSMutableSet alloc] init];
     
     NSString *file = nil;
     NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
@@ -232,7 +232,7 @@
         }
         else
         {
-            [allFiles addObjectsFromArray:[self allFilesForDirectory:fullPath]];
+            [allFiles unionSet:[self allFilesForDirectory:fullPath]];
         }
     }
     return allFiles;
