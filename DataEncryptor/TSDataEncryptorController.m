@@ -13,6 +13,8 @@
 
 @property (nonatomic, weak) IBOutlet NSTextField *inTextField;
 @property (nonatomic, weak) IBOutlet NSTextField *outTextField;
+@property (nonatomic, weak) IBOutlet NSTextField *passTextField;
+@property (nonatomic, weak) IBOutlet NSTextField *infoTextField;
 
 @property (nonatomic, strong, readonly) NSOpenPanel *openPanel;
 @property (nonatomic, strong, readonly) NSSavePanel *savePanel;
@@ -29,12 +31,14 @@
 @synthesize openPanel = _openPanel;
 @synthesize savePanel = _savePanel;
 
+#pragma mark -
+
 - (NSOpenPanel *)openPanel
 {
     if (_openPanel == nil)
     {
         _openPanel = [NSOpenPanel openPanel];
-        _openPanel.prompt = @"Income folder/file";
+        _openPanel.prompt = @"Income";
         _openPanel.showsHiddenFiles = YES;
         _openPanel.canChooseDirectories = YES;
         _openPanel.allowsMultipleSelection = YES;
@@ -48,13 +52,15 @@
     if (_savePanel == nil)
     {
         _savePanel = [NSSavePanel savePanel];
-        _savePanel.prompt = @"Outcome folder/file";
+        _savePanel.prompt = @"Outcome";
         _savePanel.showsHiddenFiles = YES;
         _savePanel.canCreateDirectories = YES;
     }
     
     return _savePanel;
 }
+
+#pragma mark - IBAction's
 
 - (IBAction)onEncrupt:(id)sender
 {
