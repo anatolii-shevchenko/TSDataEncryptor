@@ -16,7 +16,7 @@
                        pass:(NSString *)pass
                       error:(NSError **)error
 {
-    NSString *command = [NSString stringWithFormat:@"openssl des3 -salt -in %@ -out %@ -k %@", inFilePath, outFilePath, pass];
+    NSString *command = [NSString stringWithFormat:@"openssl des3 -salt -in '%@' -out '%@' -k '%@'", inFilePath, outFilePath, pass];
     [self runTerminalCommand:command error:error];
 }
 
@@ -26,7 +26,7 @@
                        pass:(NSString *)pass
                       error:(NSError **)error
 {
-    NSString *command = [NSString stringWithFormat:@"openssl des3 -d -salt -in %@ -out %@ -k %@", inFilePath, outFilePath, pass];
+    NSString *command = [NSString stringWithFormat:@"openssl des3 -d -salt -in '%@' -out '%@' -k '%@'", inFilePath, outFilePath, pass];
     [self runTerminalCommand:command error:error];
 }
 
