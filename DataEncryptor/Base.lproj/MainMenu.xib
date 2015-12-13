@@ -669,14 +669,14 @@
         <window title="Data Encryptor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="TSDataEncryptorController">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="319" height="195"/>
+            <rect key="contentRect" x="335" y="390" width="319" height="160"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="319" height="195"/>
+                <rect key="frame" x="0.0" y="0.0" width="319" height="160"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cmy-iX-HFm">
-                        <rect key="frame" x="20" y="149" width="250" height="22"/>
+                        <rect key="frame" x="12" y="114" width="266" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="ldY-yH-S0m">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -684,7 +684,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bHP-mF-UFX">
-                        <rect key="frame" x="276" y="146" width="25" height="25"/>
+                        <rect key="frame" x="284" y="111" width="25" height="25"/>
                         <buttonCell key="cell" type="help" bezelStyle="helpButton" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="nxe-5z-i7Y">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -694,7 +694,7 @@
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GBF-fG-80l">
-                        <rect key="frame" x="20" y="106" width="250" height="22"/>
+                        <rect key="frame" x="12" y="71" width="266" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="IS1-Xf-V7R">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -702,7 +702,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ttl-2c-wHY">
-                        <rect key="frame" x="276" y="103" width="25" height="25"/>
+                        <rect key="frame" x="284" y="68" width="25" height="25"/>
                         <buttonCell key="cell" type="help" bezelStyle="helpButton" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="GbQ-mX-O0V">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -711,21 +711,8 @@
                             <action selector="onDecryptOpen:" target="QvC-M9-y7g" id="8PP-ef-0tG"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lc1-mk-8Jv">
-                        <rect key="frame" x="136" y="56" width="82" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="70" id="jxe-y2-ISO"/>
-                        </constraints>
-                        <buttonCell key="cell" type="push" title="Encrypt" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aaO-fD-sF8">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="onEncrypt:" target="QvC-M9-y7g" id="0Mg-YZ-htW"/>
-                        </connections>
-                    </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hOE-gp-Uwy">
-                        <rect key="frame" x="18" y="170" width="254" height="16"/>
+                        <rect key="frame" x="10" y="135" width="270" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Encryption folder/file" id="5kF-18-ETr">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -733,7 +720,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ksh-l6-MNo">
-                        <rect key="frame" x="18" y="127" width="254" height="16"/>
+                        <rect key="frame" x="10" y="92" width="270" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Decryption folder/file" id="tE2-RC-QPu">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -741,15 +728,15 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ced-AR-tOh">
-                        <rect key="frame" x="18" y="84" width="254" height="16"/>
+                        <rect key="frame" x="10" y="49" width="270" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password" id="gLo-7F-rD7">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="quj-Qw-1zW">
-                        <rect key="frame" x="18" y="46" width="58" height="16"/>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="quj-Qw-1zW">
+                        <rect key="frame" x="10" y="11" width="58" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Progress:" id="zvQ-Ck-52Z">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -757,7 +744,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HCI-Sp-HCR">
-                        <rect key="frame" x="76" y="46" width="59" height="16"/>
+                        <rect key="frame" x="68" y="11" width="59" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="55" id="eGQ-Ya-rAE"/>
                         </constraints>
@@ -768,7 +755,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="92e-hc-Jmj">
-                        <rect key="frame" x="223" y="56" width="82" height="32"/>
+                        <rect key="frame" x="221" y="21" width="92" height="32"/>
                         <buttonCell key="cell" type="push" title="Decrypt" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="P89-w7-DnC">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -778,7 +765,7 @@
                         </connections>
                     </button>
                     <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b8W-6B-I9i">
-                        <rect key="frame" x="20" y="63" width="96" height="22"/>
+                        <rect key="frame" x="12" y="28" width="96" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="96" id="KjQ-Dd-xvI"/>
                         </constraints>
@@ -792,36 +779,49 @@
                         </secureTextFieldCell>
                     </secureTextField>
                     <scrollView verticalHuggingPriority="1000" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHm-eu-NkD">
-                        <rect key="frame" x="20" y="8" width="279" height="35"/>
+                        <rect key="frame" x="12" y="8" width="295" height="0.0"/>
                         <clipView key="contentView" id="0eg-FR-Ore">
-                            <rect key="frame" x="1" y="1" width="277" height="33"/>
+                            <rect key="frame" x="1" y="1" width="293" height="1"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="YmW-Nc-TOX">
-                                    <rect key="frame" x="0.0" y="0.0" width="277" height="33"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="293" height="14"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="277" height="33"/>
+                                    <size key="minSize" width="293" height="1"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="277" height="33"/>
+                                    <size key="minSize" width="293" height="1"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
                         <constraints>
-                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="200" id="Ccj-hy-PNy"/>
+                            <constraint firstAttribute="height" id="Ccj-hy-PNy"/>
                         </constraints>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="N7P-SO-c31">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="VJV-yp-FVd">
-                            <rect key="frame" x="262" y="1" width="16" height="33"/>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="VJV-yp-FVd">
+                            <rect key="frame" x="278" y="0.5" width="16" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lc1-mk-8Jv">
+                        <rect key="frame" x="121" y="21" width="92" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="jxe-y2-ISO"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Encrypt" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aaO-fD-sF8">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onEncrypt:" target="QvC-M9-y7g" id="0Mg-YZ-htW"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="bHP-mF-UFX" firstAttribute="centerY" secondItem="Cmy-iX-HFm" secondAttribute="centerY" id="06U-Og-cwt"/>
@@ -833,15 +833,15 @@
                     <constraint firstItem="bHP-mF-UFX" firstAttribute="leading" secondItem="Cmy-iX-HFm" secondAttribute="trailing" constant="8" id="FEc-zO-FeT"/>
                     <constraint firstItem="Cmy-iX-HFm" firstAttribute="leading" secondItem="hOE-gp-Uwy" secondAttribute="leading" id="Guf-3S-uvc"/>
                     <constraint firstItem="BHm-eu-NkD" firstAttribute="top" secondItem="quj-Qw-1zW" secondAttribute="bottom" constant="3" id="KnN-hz-zol"/>
-                    <constraint firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" constant="49" id="Mon-2p-InI"/>
+                    <constraint firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" constant="41" id="Mon-2p-InI"/>
                     <constraint firstItem="92e-hc-Jmj" firstAttribute="centerY" secondItem="Lc1-mk-8Jv" secondAttribute="centerY" id="OBh-F9-Vgk"/>
-                    <constraint firstItem="92e-hc-Jmj" firstAttribute="leading" secondItem="Lc1-mk-8Jv" secondAttribute="trailing" constant="17" id="TqQ-Ku-9tA"/>
+                    <constraint firstItem="92e-hc-Jmj" firstAttribute="leading" secondItem="Lc1-mk-8Jv" secondAttribute="trailing" constant="20" id="TqQ-Ku-9tA"/>
                     <constraint firstItem="GBF-fG-80l" firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" id="V6H-s8-iF6"/>
-                    <constraint firstItem="hOE-gp-Uwy" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="VEY-QM-tcI"/>
+                    <constraint firstItem="hOE-gp-Uwy" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="12" id="VEY-QM-tcI"/>
                     <constraint firstItem="Cmy-iX-HFm" firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" id="WzF-U3-ZS9"/>
                     <constraint firstItem="Ttl-2c-wHY" firstAttribute="centerY" secondItem="GBF-fG-80l" secondAttribute="centerY" id="XNo-fc-Sbj"/>
                     <constraint firstItem="HCI-Sp-HCR" firstAttribute="leading" secondItem="quj-Qw-1zW" secondAttribute="trailing" constant="4" id="Y2O-w8-CeQ"/>
-                    <constraint firstAttribute="trailing" secondItem="BHm-eu-NkD" secondAttribute="trailing" constant="20" id="YwB-sq-nch"/>
+                    <constraint firstAttribute="trailing" secondItem="BHm-eu-NkD" secondAttribute="trailing" constant="12" id="YwB-sq-nch"/>
                     <constraint firstItem="quj-Qw-1zW" firstAttribute="leading" secondItem="b8W-6B-I9i" secondAttribute="leading" id="adG-iq-uI4"/>
                     <constraint firstItem="GBF-fG-80l" firstAttribute="leading" secondItem="hOE-gp-Uwy" secondAttribute="leading" id="azD-NL-Pg6"/>
                     <constraint firstItem="Ced-AR-tOh" firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" id="esh-2z-Tb0"/>
@@ -853,11 +853,11 @@
                     <constraint firstItem="Ttl-2c-wHY" firstAttribute="leading" secondItem="GBF-fG-80l" secondAttribute="trailing" constant="8" id="lao-Vz-uRm"/>
                     <constraint firstItem="92e-hc-Jmj" firstAttribute="width" secondItem="Lc1-mk-8Jv" secondAttribute="width" id="qn7-dF-23w"/>
                     <constraint firstItem="ksh-l6-MNo" firstAttribute="top" secondItem="Cmy-iX-HFm" secondAttribute="bottom" constant="6" id="rth-2e-8YB"/>
-                    <constraint firstItem="BHm-eu-NkD" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="t5j-Fy-gKn"/>
+                    <constraint firstItem="BHm-eu-NkD" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="12" id="t5j-Fy-gKn"/>
                     <constraint firstItem="GBF-fG-80l" firstAttribute="top" secondItem="ksh-l6-MNo" secondAttribute="bottom" constant="-1" id="tzR-HS-Q6V"/>
                     <constraint firstItem="Cmy-iX-HFm" firstAttribute="top" secondItem="hOE-gp-Uwy" secondAttribute="bottom" constant="-1" id="vMB-rc-ky4"/>
                     <constraint firstItem="b8W-6B-I9i" firstAttribute="leading" secondItem="Ced-AR-tOh" secondAttribute="leading" id="vvN-kA-s3P"/>
-                    <constraint firstItem="Lc1-mk-8Jv" firstAttribute="leading" secondItem="b8W-6B-I9i" secondAttribute="trailing" constant="26" id="wPj-Bl-5Hs"/>
+                    <constraint firstItem="Lc1-mk-8Jv" firstAttribute="leading" secondItem="b8W-6B-I9i" secondAttribute="trailing" constant="19" id="wPj-Bl-5Hs"/>
                 </constraints>
             </view>
             <connections>
@@ -868,7 +868,9 @@
                 <outlet property="encryptOpenButton" destination="bHP-mF-UFX" id="uRS-ku-j3N"/>
                 <outlet property="encryptTextField" destination="Cmy-iX-HFm" id="4cX-zc-5gz"/>
                 <outlet property="infoTextView" destination="YmW-Nc-TOX" id="oJM-WS-fhf"/>
+                <outlet property="infoTextViewHeightConstraint" destination="Ccj-hy-PNy" id="gzJ-4N-rSn"/>
                 <outlet property="passTextField" destination="b8W-6B-I9i" id="q1l-ff-F8g"/>
+                <outlet property="progressLabelTextField" destination="quj-Qw-1zW" id="hdt-S0-k7w"/>
                 <outlet property="progressTextField" destination="HCI-Sp-HCR" id="H2O-BT-Yh4"/>
             </connections>
             <point key="canvasLocation" x="242.5" y="215.5"/>

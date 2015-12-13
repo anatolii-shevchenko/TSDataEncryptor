@@ -16,7 +16,9 @@
 @property (nonatomic, weak) IBOutlet NSSecureTextField *passTextField;
 
 @property (nonatomic, weak) IBOutlet NSTextField *progressTextField;
+@property (nonatomic, weak) IBOutlet NSTextField *progressLabelTextField;
 @property (nonatomic, assign) IBOutlet NSTextView *infoTextView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *infoTextViewHeightConstraint;
 
 @property (nonatomic, weak) IBOutlet NSButton *encryptButton;
 @property (nonatomic, weak) IBOutlet NSButton *decryptButton;
@@ -74,14 +76,14 @@
 
 - (IBAction)onEncrypt:(id)sender
 {
+    [self blockUI:YES];
+    
     BOOL isDirectory = NO;
     NSString *filePath = self.encryptTextField.stringValue;
     BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
     
     if (isExist)
     {
-        [self blockUI:YES];
-        
         NSString *inputPath = nil;
         NSSet *filesSubpathes = nil;
         
@@ -113,14 +115,14 @@
 
 - (IBAction)onDecrypt:(id)sender
 {
+    [self blockUI:YES];
+    
     BOOL isDirectory = NO;
     NSString *filePath = self.decryptTextField.stringValue;
     BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
     
     if (isExist)
     {
-        [self blockUI:YES];
-        
         NSString *inputPath = nil;
         NSSet *filesSubpathes = nil;
         
@@ -228,7 +230,11 @@
     if (isBlock)
     {
         self.infoTextView.string = @"";
-        self.progressTextField.stringValue = @"";
+        self.progressTextField.stringValue = @"0%";
+        
+        self.progressLabelTextField.hidden = NO;
+        self.infoTextView.editable = NO;
+        self.infoTextViewHeightConstraint.animator.constant = 200;
     }
     
     self.encryptButton.enabled = !isBlock;
