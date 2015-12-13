@@ -26,60 +26,33 @@
     return allFilesSubpathes;
 }
 
-+ (NSString *)resultAfterFilesEncryptionWithInputPath:(NSString *)inputPath
-                                       filesSubpathes:(NSSet *)filesSubpathes
-                                           outputPath:(NSString *)outputPath
-                                             password:(NSString *)password
++ (void)decryptFilesWithInputPath:(NSString *)inputPath
+                   filesSubpathes:(NSSet *)filesSubpathes
+                       outputPath:(NSString *)outputPath
+                         password:(NSString *)password
+                      updateBlock:(void(^)(float progress, NSString *updateString))updateBlock
 {
-    if (0 == filesSubpathes.count)
-    {
-        return @"There is no file in choosen directory!";
-    }
-    
-    NSError *error = nil;
-    for (NSString *filesSubpath in filesSubpathes)
-    {
-        NSString *inputFilePath = [inputPath stringByAppendingPathComponent:filesSubpath];
-        NSString *outputFilePath = [outputPath stringByAppendingPathComponent:filesSubpath];
-        
-        [TSDataEncryptor encryptFileWithPath:inputFilePath
-                                 outFilePath:outputFilePath
-                                        pass:password
-                                       error:&error];
-        if (nil != error)
-        {
-            return [NSString stringWithFormat:@"Error: %@", error.description];
-        }
-    }
-    return @"Done!";
+    [self encryptFiles:NO
+             inputPath:inputPath
+        filesSubpathes:filesSubpathes
+            outputPath:outputPath
+              password:password
+           updateBlock:updateBlock];
 }
 
-+ (NSString *)resultAfterFilesDecryptionWithInputPath:(NSString *)inputPath
-                                       filesSubpathes:(NSSet *)filesSubpathes
-                                           outputPath:(NSString *)outputPath
-                                             password:(NSString *)password
+
++ (void)encryptFilesWithInputPath:(NSString *)inputPath
+                   filesSubpathes:(NSSet *)filesSubpathes
+                       outputPath:(NSString *)outputPath
+                         password:(NSString *)password
+                      updateBlock:(void(^)(float progress, NSString *updateString))updateBlock
 {
-    if (0 == filesSubpathes.count)
-    {
-        return @"There is no file in choosen directory!";
-    }
-    
-    NSError *error = nil;
-    for (NSString *filesSubpath in filesSubpathes)
-    {
-        NSString *inputFilePath = [inputPath stringByAppendingPathComponent:filesSubpath];
-        NSString *outputFilePath = [outputPath stringByAppendingPathComponent:filesSubpath];
-        
-        [TSDataEncryptor decryptFileWithPath:inputFilePath
-                                 outFilePath:outputFilePath
-                                        pass:password
-                                       error:&error];
-        if (nil != error)
-        {
-            return [NSString stringWithFormat:@"Error: %@", error.description];
-        }
-    }
-    return @"Done!";
+    [self encryptFiles:YES
+             inputPath:inputPath
+        filesSubpathes:filesSubpathes
+            outputPath:outputPath
+              password:password
+           updateBlock:updateBlock];
 }
 
 #pragma mark - private methods
@@ -119,6 +92,66 @@
         }
     }
     return allFiles;
+}
+
++ (void)encryptFiles:(BOOL)isEncrypt
+           inputPath:(NSString *)inputPath
+      filesSubpathes:(NSSet *)filesSubpathes
+          outputPath:(NSString *)outputPath
+            password:(NSString *)password
+         updateBlock:(void(^)(float progress, NSString *updateString))updateBlock
+{
+    if (0 == filesSubpathes.count)
+    {
+        updateBlock(1.0f, @"There is no file in choosen directory!");
+        return;
+    }
+    
+    NSError *error = nil;
+    NSUInteger currentIndex = 0;
+    for (NSString *filesSubpath in filesSubpathes)
+    {
+        float currentProgress = (float)currentIndex/filesSubpathes.count;
+        currentIndex++;
+        
+        NSString *inputFilePath = [inputPath stringByAppendingPathComponent:filesSubpath];
+        NSString *outputFilePath = [outputPath stringByAppendingPathComponent:filesSubpath];
+        
+        NSString *outputDirectory = [outputFilePath stringByDeletingLastPathComponent];
+        
+        BOOL isDirectory = NO;
+        BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:outputDirectory isDirectory:&isDirectory];
+        if (!isExist)
+        {
+            [[NSFileManager defaultManager] createDirectoryAtPath:outputDirectory
+                                      withIntermediateDirectories:YES
+                                                       attributes:nil
+                                                            error:&error];
+            if (nil != error)
+            {
+                updateBlock(currentProgress, [NSString stringWithFormat:@"Directory creation error: %@, directory: %@", error.description, outputDirectory]);
+            }
+        }
+        
+        if (isEncrypt)
+        {
+            [TSDataEncryptor encryptFileWithPath:inputFilePath outFilePath:outputFilePath pass:password error:&error];
+        }
+        else
+        {
+            [TSDataEncryptor decryptFileWithPath:inputFilePath outFilePath:outputFilePath pass:password error:&error];
+        }
+        
+        if (nil != error)
+        {
+            updateBlock(currentProgress, [NSString stringWithFormat:@"Error: %@, file: %@", error.description, inputFilePath]);
+        }
+        else
+        {
+            updateBlock(currentProgress, nil);
+        }
+    }
+    updateBlock(1.0f, @"Done!");
 }
 
 @end

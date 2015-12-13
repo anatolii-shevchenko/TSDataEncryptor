@@ -12,13 +12,16 @@
 
 + (NSSet *)allFilesSubpathesForDirectoryPath:(NSString *)directoryPath;
 
-+ (NSString *)resultAfterFilesEncryptionWithInputPath:(NSString *)inputPath
-                                       filesSubpathes:(NSSet *)filesSubpathes
-                                           outputPath:(NSString *)outputPath
-                                             password:(NSString *)password;
++ (void)encryptFilesWithInputPath:(NSString *)inputPath
+                   filesSubpathes:(NSSet *)filesSubpathes
+                       outputPath:(NSString *)outputPath
+                         password:(NSString *)password
+                      updateBlock:(void(^)(float progress, NSString *updateString))updateBlock;
 
-+ (NSString *)resultAfterFilesDecryptionWithInputPath:(NSString *)inputPath
-                                       filesSubpathes:(NSSet *)filesSubpathes
-                                           outputPath:(NSString *)outputPath
-                                             password:(NSString *)password;
++ (void)decryptFilesWithInputPath:(NSString *)inputPath
+                   filesSubpathes:(NSSet *)filesSubpathes
+                       outputPath:(NSString *)outputPath
+                         password:(NSString *)password
+                      updateBlock:(void(^)(float progress, NSString *updateString))updateBlock;
+
 @end

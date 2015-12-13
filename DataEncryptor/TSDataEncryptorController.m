@@ -13,8 +13,15 @@
 
 @property (nonatomic, weak) IBOutlet NSTextField *encryptTextField;
 @property (nonatomic, weak) IBOutlet NSTextField *decryptTextField;
-@property (nonatomic, weak) IBOutlet NSTextField *passTextField;
+@property (nonatomic, weak) IBOutlet NSSecureTextField *passTextField;
+
 @property (nonatomic, weak) IBOutlet NSTextField *infoTextField;
+@property (nonatomic, weak) IBOutlet NSTextField *progressTextField;
+
+@property (nonatomic, weak) IBOutlet NSButton *encryptButton;
+@property (nonatomic, weak) IBOutlet NSButton *decryptButton;
+@property (nonatomic, weak) IBOutlet NSButton *encryptOpenButton;
+@property (nonatomic, weak) IBOutlet NSButton *decryptOpenButton;
 
 @property (nonatomic, strong, readonly) NSOpenPanel *encryptPanel;
 @property (nonatomic, strong, readonly) NSOpenPanel *decryptPanel;
@@ -37,7 +44,6 @@
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.prompt = @"Choose";
-    panel.showsHiddenFiles = YES;
     panel.canChooseDirectories = YES;
     panel.canCreateDirectories = YES;
     
@@ -72,9 +78,10 @@
     NSString *filePath = self.encryptTextField.stringValue;
     BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
     
-    NSString *operationResult = nil;
     if (isExist)
     {
+        [self blockUI:YES];
+        
         NSString *inputPath = nil;
         NSSet *filesSubpathes = nil;
         
@@ -89,16 +96,19 @@
             NSString *fileSubpath = [filePath lastPathComponent];
             filesSubpathes = [NSSet setWithObject:fileSubpath];
         }
-        operationResult = [TSDataEncryptorHelper resultAfterFilesEncryptionWithInputPath:inputPath
-                                                                          filesSubpathes:filesSubpathes
-                                                                              outputPath:self.decryptTextField.stringValue
-                                                                                password:self.passTextField.stringValue];
+        
+        [TSDataEncryptorHelper encryptFilesWithInputPath:inputPath
+                                          filesSubpathes:filesSubpathes
+                                              outputPath:self.decryptTextField.stringValue
+                                                password:self.passTextField.stringValue
+                                             updateBlock:^(float progress, NSString *updateString) {
+                                                 [self updateUIWithProgress:progress updateString:updateString];
+                                             }];
     }
     else
     {
-        operationResult = @"There is no input file/directory!";
+        [self updateUIWithProgress:1.0f updateString:@"There is no input file/directory!"];
     }
-    self.infoTextField.stringValue = operationResult;
 }
 
 - (IBAction)onDecrypt:(id)sender
@@ -107,9 +117,10 @@
     NSString *filePath = self.decryptTextField.stringValue;
     BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
     
-    NSString *operationResult = nil;
     if (isExist)
     {
+        [self blockUI:YES];
+        
         NSString *inputPath = nil;
         NSSet *filesSubpathes = nil;
         
@@ -124,16 +135,19 @@
             NSString *fileSubpath = [filePath lastPathComponent];
             filesSubpathes = [NSSet setWithObject:fileSubpath];
         }
-        operationResult = [TSDataEncryptorHelper resultAfterFilesDecryptionWithInputPath:inputPath
-                                                                          filesSubpathes:filesSubpathes
-                                                                              outputPath:self.encryptTextField.stringValue
-                                                                                password:self.passTextField.stringValue];
+        
+        [TSDataEncryptorHelper decryptFilesWithInputPath:inputPath
+                                          filesSubpathes:filesSubpathes
+                                              outputPath:self.encryptTextField.stringValue
+                                                password:self.passTextField.stringValue
+                                             updateBlock:^(float progress, NSString *updateString) {
+                                                 [self updateUIWithProgress:progress updateString:updateString];
+                                             }];
     }
     else
     {
-        operationResult = @"There is no input file/directory!";
+        [self updateUIWithProgress:1.0f updateString:@"There is no input file/directory!"];
     }
-    self.infoTextField.stringValue = operationResult;
 }
 
 - (IBAction)onEncryptOpen:(id)sender
@@ -192,6 +206,39 @@
     }
     
     return suggestedDirectoryURL;
+}
+
+- (void)updateUIWithProgress:(float)progress updateString:(NSString *)updateString
+{
+    if (nil != updateString)
+    {
+        NSString *appendingString = [NSString stringWithFormat:@"%@\n", updateString];
+        self.infoTextField.stringValue = [self.infoTextField.stringValue stringByAppendingString:appendingString];
+    }
+    self.progressTextField.stringValue = [NSString stringWithFormat:@"%d%%", (int)(progress*100)];
+    
+    if (progress >= 1.0f)
+    {
+        [self blockUI:NO];
+    }
+}
+
+- (void)blockUI:(BOOL)isBlock
+{
+    if (isBlock)
+    {
+        self.infoTextField.stringValue = @"";
+        self.progressTextField.stringValue = @"";
+    }
+    
+    self.encryptButton.enabled = !isBlock;
+    self.decryptButton.enabled = !isBlock;
+    self.encryptOpenButton.enabled = !isBlock;
+    self.decryptOpenButton.enabled = !isBlock;
+    
+    self.encryptTextField.editable = !isBlock;
+    self.decryptTextField.editable = !isBlock;
+    self.passTextField.editable = !isBlock;
 }
 
 @end
