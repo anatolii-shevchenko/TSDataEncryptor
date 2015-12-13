@@ -155,7 +155,7 @@
             else
             {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    updateBlock(currentProgress, nil);
+                    updateBlock(currentProgress, [NSString stringWithFormat:@"%@ => Done!", inputFilePath]);
                 });
             }
         }
