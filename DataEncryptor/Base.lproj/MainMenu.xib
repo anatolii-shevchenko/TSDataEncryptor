@@ -791,49 +791,69 @@
                             </allowedInputSourceLocales>
                         </secureTextFieldCell>
                     </secureTextField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="279" translatesAutoresizingMaskIntoConstraints="NO" id="9kM-8Y-XaJ">
-                        <rect key="frame" x="18" y="7" width="283" height="32"/>
+                    <scrollView verticalHuggingPriority="1000" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHm-eu-NkD">
+                        <rect key="frame" x="20" y="8" width="279" height="35"/>
+                        <clipView key="contentView" id="0eg-FR-Ore">
+                            <rect key="frame" x="1" y="1" width="277" height="33"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="YmW-Nc-TOX">
+                                    <rect key="frame" x="0.0" y="0.0" width="277" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="277" height="33"/>
+                                    <size key="maxSize" width="463" height="10000000"/>
+                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <size key="minSize" width="277" height="33"/>
+                                    <size key="maxSize" width="463" height="10000000"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </clipView>
                         <constraints>
-                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="200" id="Ui8-Op-eE5"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="200" id="Ccj-hy-PNy"/>
                         </constraints>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Select folders and tap an appropriate button to start operation." id="xdw-B2-7yv">
-                            <font key="font" metaFont="cellTitle"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="N7P-SO-c31">
+                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="VJV-yp-FVd">
+                            <rect key="frame" x="262" y="1" width="16" height="33"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="bHP-mF-UFX" firstAttribute="centerY" secondItem="Cmy-iX-HFm" secondAttribute="centerY" id="06U-Og-cwt"/>
+                    <constraint firstAttribute="bottom" secondItem="BHm-eu-NkD" secondAttribute="bottom" constant="8" id="3Jv-SA-iOb"/>
                     <constraint firstItem="b8W-6B-I9i" firstAttribute="top" secondItem="Ced-AR-tOh" secondAttribute="bottom" constant="-1" id="89N-6b-eXZ"/>
                     <constraint firstItem="Ced-AR-tOh" firstAttribute="leading" secondItem="hOE-gp-Uwy" secondAttribute="leading" id="A5A-W6-SOu"/>
                     <constraint firstItem="HCI-Sp-HCR" firstAttribute="baseline" secondItem="quj-Qw-1zW" secondAttribute="baseline" id="Ap4-PH-YTw"/>
                     <constraint firstItem="hOE-gp-Uwy" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="9" id="DGa-xM-sDa"/>
                     <constraint firstItem="bHP-mF-UFX" firstAttribute="leading" secondItem="Cmy-iX-HFm" secondAttribute="trailing" constant="8" id="FEc-zO-FeT"/>
                     <constraint firstItem="Cmy-iX-HFm" firstAttribute="leading" secondItem="hOE-gp-Uwy" secondAttribute="leading" id="Guf-3S-uvc"/>
+                    <constraint firstItem="BHm-eu-NkD" firstAttribute="top" secondItem="quj-Qw-1zW" secondAttribute="bottom" constant="3" id="KnN-hz-zol"/>
                     <constraint firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" constant="49" id="Mon-2p-InI"/>
                     <constraint firstItem="92e-hc-Jmj" firstAttribute="centerY" secondItem="Lc1-mk-8Jv" secondAttribute="centerY" id="OBh-F9-Vgk"/>
-                    <constraint firstItem="9kM-8Y-XaJ" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="R9C-X7-D4f"/>
                     <constraint firstItem="92e-hc-Jmj" firstAttribute="leading" secondItem="Lc1-mk-8Jv" secondAttribute="trailing" constant="17" id="TqQ-Ku-9tA"/>
                     <constraint firstItem="GBF-fG-80l" firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" id="V6H-s8-iF6"/>
                     <constraint firstItem="hOE-gp-Uwy" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="VEY-QM-tcI"/>
                     <constraint firstItem="Cmy-iX-HFm" firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" id="WzF-U3-ZS9"/>
                     <constraint firstItem="Ttl-2c-wHY" firstAttribute="centerY" secondItem="GBF-fG-80l" secondAttribute="centerY" id="XNo-fc-Sbj"/>
                     <constraint firstItem="HCI-Sp-HCR" firstAttribute="leading" secondItem="quj-Qw-1zW" secondAttribute="trailing" constant="4" id="Y2O-w8-CeQ"/>
+                    <constraint firstAttribute="trailing" secondItem="BHm-eu-NkD" secondAttribute="trailing" constant="20" id="YwB-sq-nch"/>
                     <constraint firstItem="quj-Qw-1zW" firstAttribute="leading" secondItem="b8W-6B-I9i" secondAttribute="leading" id="adG-iq-uI4"/>
                     <constraint firstItem="GBF-fG-80l" firstAttribute="leading" secondItem="hOE-gp-Uwy" secondAttribute="leading" id="azD-NL-Pg6"/>
                     <constraint firstItem="Ced-AR-tOh" firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" id="esh-2z-Tb0"/>
-                    <constraint firstAttribute="trailing" secondItem="9kM-8Y-XaJ" secondAttribute="trailing" constant="20" id="gW1-wa-qvi"/>
                     <constraint firstItem="ksh-l6-MNo" firstAttribute="leading" secondItem="hOE-gp-Uwy" secondAttribute="leading" id="hXV-Sb-Fz2"/>
                     <constraint firstItem="quj-Qw-1zW" firstAttribute="top" secondItem="b8W-6B-I9i" secondAttribute="bottom" constant="1" id="iqD-sh-Ile"/>
                     <constraint firstItem="ksh-l6-MNo" firstAttribute="trailing" secondItem="hOE-gp-Uwy" secondAttribute="trailing" id="jCz-aZ-SuZ"/>
                     <constraint firstItem="Lc1-mk-8Jv" firstAttribute="centerY" secondItem="b8W-6B-I9i" secondAttribute="centerY" id="kwV-Kr-JJN"/>
                     <constraint firstItem="Ced-AR-tOh" firstAttribute="top" secondItem="GBF-fG-80l" secondAttribute="bottom" constant="6" id="lZA-Yt-aK8"/>
                     <constraint firstItem="Ttl-2c-wHY" firstAttribute="leading" secondItem="GBF-fG-80l" secondAttribute="trailing" constant="8" id="lao-Vz-uRm"/>
-                    <constraint firstAttribute="bottom" secondItem="9kM-8Y-XaJ" secondAttribute="bottom" constant="7" id="qfE-I1-cln"/>
                     <constraint firstItem="92e-hc-Jmj" firstAttribute="width" secondItem="Lc1-mk-8Jv" secondAttribute="width" id="qn7-dF-23w"/>
                     <constraint firstItem="ksh-l6-MNo" firstAttribute="top" secondItem="Cmy-iX-HFm" secondAttribute="bottom" constant="6" id="rth-2e-8YB"/>
-                    <constraint firstItem="9kM-8Y-XaJ" firstAttribute="top" secondItem="quj-Qw-1zW" secondAttribute="bottom" constant="7" id="sL0-u8-S3R"/>
+                    <constraint firstItem="BHm-eu-NkD" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="t5j-Fy-gKn"/>
                     <constraint firstItem="GBF-fG-80l" firstAttribute="top" secondItem="ksh-l6-MNo" secondAttribute="bottom" constant="-1" id="tzR-HS-Q6V"/>
                     <constraint firstItem="Cmy-iX-HFm" firstAttribute="top" secondItem="hOE-gp-Uwy" secondAttribute="bottom" constant="-1" id="vMB-rc-ky4"/>
                     <constraint firstItem="b8W-6B-I9i" firstAttribute="leading" secondItem="Ced-AR-tOh" secondAttribute="leading" id="vvN-kA-s3P"/>
@@ -847,11 +867,11 @@
                 <outlet property="encryptButton" destination="Lc1-mk-8Jv" id="vgt-d8-pkR"/>
                 <outlet property="encryptOpenButton" destination="bHP-mF-UFX" id="uRS-ku-j3N"/>
                 <outlet property="encryptTextField" destination="Cmy-iX-HFm" id="4cX-zc-5gz"/>
-                <outlet property="infoTextField" destination="9kM-8Y-XaJ" id="HG9-s6-j2U"/>
+                <outlet property="infoTextView" destination="YmW-Nc-TOX" id="oJM-WS-fhf"/>
                 <outlet property="passTextField" destination="b8W-6B-I9i" id="q1l-ff-F8g"/>
                 <outlet property="progressTextField" destination="HCI-Sp-HCR" id="H2O-BT-Yh4"/>
             </connections>
-            <point key="canvasLocation" x="242.5" y="216"/>
+            <point key="canvasLocation" x="242.5" y="215.5"/>
         </window>
     </objects>
 </document>

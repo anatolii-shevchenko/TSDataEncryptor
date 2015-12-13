@@ -15,8 +15,8 @@
 @property (nonatomic, weak) IBOutlet NSTextField *decryptTextField;
 @property (nonatomic, weak) IBOutlet NSSecureTextField *passTextField;
 
-@property (nonatomic, weak) IBOutlet NSTextField *infoTextField;
 @property (nonatomic, weak) IBOutlet NSTextField *progressTextField;
+@property (nonatomic, assign) IBOutlet NSTextView *infoTextView;
 
 @property (nonatomic, weak) IBOutlet NSButton *encryptButton;
 @property (nonatomic, weak) IBOutlet NSButton *decryptButton;
@@ -213,7 +213,7 @@
     if (nil != updateString)
     {
         NSString *appendingString = [NSString stringWithFormat:@"%@\n", updateString];
-        self.infoTextField.stringValue = [self.infoTextField.stringValue stringByAppendingString:appendingString];
+        self.infoTextView.string = [self.infoTextView.string stringByAppendingString:appendingString];
     }
     self.progressTextField.stringValue = [NSString stringWithFormat:@"%d%%", (int)(progress*100)];
     
@@ -227,7 +227,7 @@
 {
     if (isBlock)
     {
-        self.infoTextField.stringValue = @"";
+        self.infoTextView.string = @"";
         self.progressTextField.stringValue = @"";
     }
     
