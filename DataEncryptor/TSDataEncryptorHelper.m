@@ -107,51 +107,62 @@
         return;
     }
     
-    NSError *error = nil;
-    NSUInteger currentIndex = 0;
-    for (NSString *filesSubpath in filesSubpathes)
-    {
-        float currentProgress = (float)currentIndex/filesSubpathes.count;
-        currentIndex++;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         
-        NSString *inputFilePath = [inputPath stringByAppendingPathComponent:filesSubpath];
-        NSString *outputFilePath = [outputPath stringByAppendingPathComponent:filesSubpath];
-        
-        NSString *outputDirectory = [outputFilePath stringByDeletingLastPathComponent];
-        
-        BOOL isDirectory = NO;
-        BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:outputDirectory isDirectory:&isDirectory];
-        if (!isExist)
+        NSError *error = nil;
+        NSUInteger currentIndex = 0;
+        for (NSString *filesSubpath in filesSubpathes)
         {
-            [[NSFileManager defaultManager] createDirectoryAtPath:outputDirectory
-                                      withIntermediateDirectories:YES
-                                                       attributes:nil
-                                                            error:&error];
+            float currentProgress = (float)currentIndex/filesSubpathes.count;
+            currentIndex++;
+            
+            NSString *inputFilePath = [inputPath stringByAppendingPathComponent:filesSubpath];
+            NSString *outputFilePath = [outputPath stringByAppendingPathComponent:filesSubpath];
+            
+            NSString *outputDirectory = [outputFilePath stringByDeletingLastPathComponent];
+            
+            BOOL isDirectory = NO;
+            BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:outputDirectory isDirectory:&isDirectory];
+            if (!isExist)
+            {
+                [[NSFileManager defaultManager] createDirectoryAtPath:outputDirectory
+                                          withIntermediateDirectories:YES
+                                                           attributes:nil
+                                                                error:&error];
+                if (nil != error)
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        updateBlock(currentProgress, [NSString stringWithFormat:@"Directory creation error: %@, directory: %@", error.description, outputDirectory]);
+                    });
+                }
+            }
+            
+            if (isEncrypt)
+            {
+                [TSDataEncryptor encryptFileWithPath:inputFilePath outFilePath:outputFilePath pass:password error:&error];
+            }
+            else
+            {
+                [TSDataEncryptor decryptFileWithPath:inputFilePath outFilePath:outputFilePath pass:password error:&error];
+            }
+            
             if (nil != error)
             {
-                updateBlock(currentProgress, [NSString stringWithFormat:@"Directory creation error: %@, directory: %@", error.description, outputDirectory]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    updateBlock(currentProgress, [NSString stringWithFormat:@"Error: %@, file: %@", error.description, inputFilePath]);
+                });
+            }
+            else
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    updateBlock(currentProgress, nil);
+                });
             }
         }
-        
-        if (isEncrypt)
-        {
-            [TSDataEncryptor encryptFileWithPath:inputFilePath outFilePath:outputFilePath pass:password error:&error];
-        }
-        else
-        {
-            [TSDataEncryptor decryptFileWithPath:inputFilePath outFilePath:outputFilePath pass:password error:&error];
-        }
-        
-        if (nil != error)
-        {
-            updateBlock(currentProgress, [NSString stringWithFormat:@"Error: %@, file: %@", error.description, inputFilePath]);
-        }
-        else
-        {
-            updateBlock(currentProgress, nil);
-        }
-    }
-    updateBlock(1.0f, @"Done!");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            updateBlock(1.0f, @"Done!");
+        });
+    });
 }
 
 @end
