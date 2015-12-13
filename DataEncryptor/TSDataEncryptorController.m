@@ -7,7 +7,7 @@
 //
 
 #import "TSDataEncryptorController.h"
-#import "TSDataEncryptor.h"
+#import "TSDataEncryptorHelper.h"
 
 @interface TSDataEncryptorController ()
 
@@ -75,16 +75,24 @@
     NSString *operationResult = nil;
     if (isExist)
     {
-        NSSet *filesSet = nil;
+        NSString *inputPath = nil;
+        NSSet *filesSubpathes = nil;
+        
         if (isDirectory)
         {
-            filesSet = [self allFilesForDirectory:filePath];
+            inputPath = filePath;
+            filesSubpathes = [TSDataEncryptorHelper allFilesSubpathesForDirectoryPath:filePath];
         }
         else
         {
-            filesSet = [NSSet setWithObject:filePath];
+            inputPath = [filePath stringByDeletingLastPathComponent];
+            NSString *fileSubpath = [filePath lastPathComponent];
+            filesSubpathes = [NSSet setWithObject:fileSubpath];
         }
-        operationResult = [self resultAfterFilesEncryption:filesSet];
+        operationResult = [TSDataEncryptorHelper resultAfterFilesEncryptionWithInputPath:inputPath
+                                                                          filesSubpathes:filesSubpathes
+                                                                              outputPath:self.decryptTextField.stringValue
+                                                                                password:self.passTextField.stringValue];
     }
     else
     {
@@ -102,16 +110,24 @@
     NSString *operationResult = nil;
     if (isExist)
     {
-        NSSet *filesSet = nil;
+        NSString *inputPath = nil;
+        NSSet *filesSubpathes = nil;
+        
         if (isDirectory)
         {
-            filesSet = [self allFilesForDirectory:filePath];
+            inputPath = filePath;
+            filesSubpathes = [TSDataEncryptorHelper allFilesSubpathesForDirectoryPath:filePath];
         }
         else
         {
-            filesSet = [NSSet setWithObject:filePath];
+            inputPath = [filePath stringByDeletingLastPathComponent];
+            NSString *fileSubpath = [filePath lastPathComponent];
+            filesSubpathes = [NSSet setWithObject:fileSubpath];
         }
-        operationResult = [self resultAfterFilesDecryption:filesSet];
+        operationResult = [TSDataEncryptorHelper resultAfterFilesDecryptionWithInputPath:inputPath
+                                                                          filesSubpathes:filesSubpathes
+                                                                              outputPath:self.encryptTextField.stringValue
+                                                                                password:self.passTextField.stringValue];
     }
     else
     {
@@ -176,93 +192,6 @@
     }
     
     return suggestedDirectoryURL;
-}
-
-- (NSString *)resultAfterFilesEncryption:(NSSet *)files
-{
-    if (0 == files.count)
-    {
-        return @"There is no file in choosen directory!";
-    }
-    
-    NSString *outputPath = self.decryptTextField.stringValue;
-    NSString *password = self.passTextField.stringValue;
-    
-    NSError *error = nil;
-    for (NSString *file in files)
-    {
-        [TSDataEncryptor encryptFileWithPath:file
-                                 outFilePath:[outputPath stringByAppendingPathComponent:file.lastPathComponent]
-                                        pass:password
-                                       error:&error];
-        if (nil != error)
-        {
-            return [NSString stringWithFormat:@"Error: %@", error.description];
-        }
-    }
-    return @"Done!";
-}
-
-- (NSString *)resultAfterFilesDecryption:(NSSet *)files
-{
-    if (0 == files.count)
-    {
-        return @"There is no file in choosen directory!";
-    }
-    
-    NSString *outputPath = self.encryptTextField.stringValue;
-    NSString *password = self.passTextField.stringValue;
-    
-    NSError *error = nil;
-    for (NSString *file in files)
-    {
-        [TSDataEncryptor decryptFileWithPath:file
-                                 outFilePath:[outputPath stringByAppendingPathComponent:file.lastPathComponent]
-                                        pass:password
-                                       error:&error];
-        if (nil != error)
-        {
-            return [NSString stringWithFormat:@"Error: %@", error.description];
-        }
-    }
-    return @"Done!";
-}
-
-- (NSSet *)allFilesForDirectory:(NSString *)directoryPath
-{
-    NSMutableSet *allFiles = [[NSMutableSet alloc] init];
-    
-    NSDirectoryEnumerator* enumerator = [[NSFileManager defaultManager]
-                                         enumeratorAtURL:[NSURL fileURLWithPath:directoryPath]
-                                         includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey]
-                                         options:NSDirectoryEnumerationSkipsHiddenFiles
-                                         errorHandler:^BOOL(NSURL * _Nonnull url, NSError * _Nonnull error) {
-                                             if (error)
-                                             {
-                                                 NSLog(@"[Error] %@ (%@)", error, url);
-                                                 return NO;
-                                             }
-                                             return YES;
-                                         }];
-    
-    for (NSURL *fileURL in enumerator)
-    {
-        NSString *filename = nil;
-        [fileURL getResourceValue:&filename forKey:NSURLNameKey error:nil];
-        
-        NSNumber *isDirectory = nil;
-        [fileURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
-        
-        if (![isDirectory boolValue])
-        {
-            [allFiles addObject:fileURL.path];
-        }
-        else
-        {
-            [allFiles unionSet:[self allFilesForDirectory:fileURL.path]];
-        }
-    }
-    return allFiles;
 }
 
 @end
